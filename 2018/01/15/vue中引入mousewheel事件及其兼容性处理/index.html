@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/author_favicon_32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/author_favicon_32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/author_favicon_16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/author_favicon_32x32.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Vue,兼容性,浏览器,JavaScript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="项目实现过程中需要对一个已经有纵向滚动条的table表格增加鼠标滚轮（mousewheel）事件，方便查看数据；其实现原理与我上一篇博客中的拖动事件类似，利用模拟出来的同一个滚动条来实现，滚动条设置的要点在于：1、滚动条与滚动槽的高度比例 应该等于 内容区（动态变化）和可视区的高度比例；滚动槽与可视区平齐，高度一样，；滚动条的高度则根据内容的高度等比例计算；2、各元素的定位采用绝对定位，其父元素">
+<meta name="keywords" content="Vue,兼容性,浏览器,JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue中引入mousewheel事件及其兼容性处理">
+<meta property="og:url" content="http://yoursite.com/2018/01/15/vue中引入mousewheel事件及其兼容性处理/index.html">
+<meta property="og:site_name" content="学与思">
+<meta property="og:description" content="项目实现过程中需要对一个已经有纵向滚动条的table表格增加鼠标滚轮（mousewheel）事件，方便查看数据；其实现原理与我上一篇博客中的拖动事件类似，利用模拟出来的同一个滚动条来实现，滚动条设置的要点在于：1、滚动条与滚动槽的高度比例 应该等于 内容区（动态变化）和可视区的高度比例；滚动槽与可视区平齐，高度一样，；滚动条的高度则根据内容的高度等比例计算；2、各元素的定位采用绝对定位，其父元素">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-15T13:24:42.727Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue中引入mousewheel事件及其兼容性处理">
+<meta name="twitter:description" content="项目实现过程中需要对一个已经有纵向滚动条的table表格增加鼠标滚轮（mousewheel）事件，方便查看数据；其实现原理与我上一篇博客中的拖动事件类似，利用模拟出来的同一个滚动条来实现，滚动条设置的要点在于：1、滚动条与滚动槽的高度比例 应该等于 内容区（动态变化）和可视区的高度比例；滚动槽与可视区平齐，高度一样，；滚动条的高度则根据内容的高度等比例计算；2、各元素的定位采用绝对定位，其父元素">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/15/vue中引入mousewheel事件及其兼容性处理/"/>
+
+
+
+
+
+  <title>vue中引入mousewheel事件及其兼容性处理 | 学与思</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学与思</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/15/vue中引入mousewheel事件及其兼容性处理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张小飞">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学与思">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vue中引入mousewheel事件及其兼容性处理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T21:24:59+08:00">
+                2018-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p> 项目实现过程中需要对一个已经有纵向滚动条的table表格增加鼠标滚轮（mousewheel）事件，方便查看数据；其实现原理与我上一篇博客中的拖动事件类似，利用模拟出来的同一个滚动条来实现，滚动条设置的要点在于：1、滚动条与滚动槽的高度比例 应该等于 内容区（动态变化）和可视区的高度比例；滚动槽与可视区平齐，高度一样，；滚动条的高度则根据内容的高度等比例计算；2、各元素的定位采用绝对定位，其父元素采用相对定位，这样就能很好地设置样式；<br> 布局与样式做好后，只需要在组件methods注册方法，在元素就位后调用该方法，在方法内部为表格绑定（mousewheel）事件；在这里需要考虑兼容性问题，firefox并不支持mousewheel事件，它对应的鼠标滚动事件为DOMMouseScroll事件，并且该事件仅能通过DOM2级（addEventListener）添加处理程序；并且判断鼠标滚动方向的方式也不一样，firefoxt通过detail属性判断，向前滚动该属性为-3，向后+3；其余浏览器通过wheelDelta属性，向前时为+120的倍数，向后为-120的倍数；具体内容可参考《js高级程序设计》事件一章；添加函数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">scroll()&#123;</span><br><span class="line">     this.wrapDiv = document.getElementById(&quot;wrap&quot;);</span><br><span class="line">     this.contentDiv = document.getElementById(&quot;context-table&quot;);</span><br><span class="line">     this.contentDiv1 = document.getElementById(&quot;context-table1&quot;);</span><br><span class="line">     this.sliderWrap = document.getElementById(&quot;sliderWrap&quot;);</span><br><span class="line">     this.slider = document.getElementById(&quot;slider&quot;);</span><br><span class="line">     //设置比例</span><br><span class="line">     let scale =  this.wrapDiv.clientHeight /  this.contentDiv.clientHeight;</span><br><span class="line">     if (scale &lt; 1) &#123;</span><br><span class="line">       this.mouseFlag = true;</span><br><span class="line">       let h1 =  this.sliderWrap.clientHeight * scale;</span><br><span class="line">       h1 = (h1 &lt; 50) ? 50 : h1;</span><br><span class="line">       this.slider.style.height = h1 + &quot;px&quot;;/*滚动条高度动态变化*/</span><br><span class="line">       let y = 0;</span><br><span class="line">       let that = this;</span><br><span class="line">       //为firefox添加滚轮事件</span><br><span class="line">       if (document.addEventListener)&#123;</span><br><span class="line">         document.addEventListener(&apos;DOMMouseScroll&apos;,function (e) &#123;</span><br><span class="line">             if(that.mouseFlag)&#123;</span><br><span class="line">               //console.log(&apos;scroll&apos;);</span><br><span class="line">               let event1 = window.event|| e;</span><br><span class="line">               y = (event1.detail &gt; 0) ? y + 8 : y - 8;</span><br><span class="line">               y = (y &lt; 0) ? 0 : y;</span><br><span class="line">               let max = that.sliderWrap.clientHeight - that.slider.clientHeight;</span><br><span class="line">               y = (y &gt; max + 1) ? max + 1 : y;</span><br><span class="line">               that.slider.style.top = y + &quot;px&quot;;</span><br><span class="line">               scale = that.wrapDiv.clientHeight / that.contentDiv.clientHeight;</span><br><span class="line">               let y1 = -y / scale;</span><br><span class="line">               that.contentDiv.style.top = y1 + &quot;px&quot;;</span><br><span class="line">               that.contentDiv1.style.top = y1 + &quot;px&quot;;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;,false)</span><br><span class="line">       &#125;</span><br><span class="line">       this.wrapDiv.onmousewheel = function (e) &#123;</span><br><span class="line">         if (scale &lt; 1) &#123;</span><br><span class="line">           let event1 = window.event || e;</span><br><span class="line">           y = (event1.wheelDelta &lt; 0) ? y + 8 : y - 8;</span><br><span class="line">           y = (y &lt; 0) ? 0 : y;/*限定滚动范围*/</span><br><span class="line">           let max =  that.sliderWrap.clientHeight -  that.slider.clientHeight;</span><br><span class="line">           //console.log(scale, y, sliderWrap.clientHeight, slider.clientHeight);</span><br><span class="line">           y = (y &gt; max + 1) ? max + 1 : y;</span><br><span class="line">           that.slider.style.top = y + &quot;px&quot;;</span><br><span class="line">           scale =  that.wrapDiv.clientHeight /  that.contentDiv.clientHeight;</span><br><span class="line">           let y1 = -y / scale;</span><br><span class="line">           that.contentDiv.style.top = y1 + &quot;px&quot;;</span><br><span class="line">           that.contentDiv1.style.top = y1 + &quot;px&quot;;</span><br><span class="line">         &#125;</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     else&#123;/*当内容区高度小于等于可视区时，去除绑定的事件和滚动条*/</span><br><span class="line">       this.wrapDiv.onmousewheel =null;</span><br><span class="line">       if(document.addEventListener)&#123;</span><br><span class="line">          this.mouseFlag = false;</span><br><span class="line">       &#125;</span><br><span class="line">       this.sliderWrap.style.visibility = &apos;hidden&apos;;</span><br><span class="line">       let height = this.contentDiv.clientHeight;</span><br><span class="line">       tableRight.style.height  = height+72+&apos;px&apos;;</span><br><span class="line">       this.wrapDiv.style.height = height+2+&apos;px&apos;;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;,</span><br></pre></td></tr></table></figure>
+<p>  该函数在给firefox绑定的事件解绑时遇到了问题，由于removeEventListener()需要通过句柄来解绑，而addEventListener()通过句柄添加处理函数会导致event参数无法传递的问题；即使在需要解绑时给document绑定空的处理函数也无法覆盖前一个绑定函数；最后只好添加一个标志，在需要解绑函数时改变标志的值；在绑定函数中通过判断该标志的值来确定是否要做操作；</p>
+<p>通过上述方式即可很好地实现鼠标滚动事件的效果，并不会有兼容性的问题出现。</p>
+<p>注：若仅仅是为表格绑定单一的滚动事件，则可以不显示滚动条，甚至不设置滚动条；滚动条的作用仅仅是用来指示内容区滚动的位置，以及配合拖动事件使用；</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+            <a href="/tags/兼容性/" rel="tag"># 兼容性</a>
+          
+            <a href="/tags/浏览器/" rel="tag"># 浏览器</a>
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/15/js实现常见的三种排序方法（冒泡排序、快速排序、归并排序）/" rel="next" title="js实现常见的三种排序方法（冒泡排序、快速排序、归并排序）">
+                <i class="fa fa-chevron-left"></i> js实现常见的三种排序方法（冒泡排序、快速排序、归并排序）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/15/echarts 多个series图表的tooltip自定义/" rel="prev" title="echarts 多个series图表的tooltip自定义">
+                echarts 多个series图表的tooltip自定义 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/author.jpg"
+                alt="张小飞" />
+            
+              <p class="site-author-name" itemprop="name">张小飞</p>
+              <p class="site-description motion-element" itemprop="description">自强不息 && 知行合一</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张小飞</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

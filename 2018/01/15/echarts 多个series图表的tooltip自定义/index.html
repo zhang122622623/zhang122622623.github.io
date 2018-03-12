@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/author_favicon_32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/author_favicon_32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/author_favicon_16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/author_favicon_32x32.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ECharts," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在使用echarts制作数据图表时，由于一张图表中包含多个series并且是多种类型数据（折线图，散点图，自定义图等），最初所有数据都是在各自的series.tooltip中定义提示信息，这种情况下默认tooltip的触发方式是‘item’的方式，但是折线图在这种方式下的使用就很蛋疼了，必须要点中数据点，提示才会出来，但是数据点又比较小，很难点中，用户反馈很不好用； 为了用户体验更好，只好改代码">
+<meta name="keywords" content="ECharts">
+<meta property="og:type" content="article">
+<meta property="og:title" content="echarts 多个series图表的tooltip自定义">
+<meta property="og:url" content="http://yoursite.com/2018/01/15/echarts 多个series图表的tooltip自定义/index.html">
+<meta property="og:site_name" content="学与思">
+<meta property="og:description" content="在使用echarts制作数据图表时，由于一张图表中包含多个series并且是多种类型数据（折线图，散点图，自定义图等），最初所有数据都是在各自的series.tooltip中定义提示信息，这种情况下默认tooltip的触发方式是‘item’的方式，但是折线图在这种方式下的使用就很蛋疼了，必须要点中数据点，提示才会出来，但是数据点又比较小，很难点中，用户反馈很不好用； 为了用户体验更好，只好改代码">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-15T13:24:09.419Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="echarts 多个series图表的tooltip自定义">
+<meta name="twitter:description" content="在使用echarts制作数据图表时，由于一张图表中包含多个series并且是多种类型数据（折线图，散点图，自定义图等），最初所有数据都是在各自的series.tooltip中定义提示信息，这种情况下默认tooltip的触发方式是‘item’的方式，但是折线图在这种方式下的使用就很蛋疼了，必须要点中数据点，提示才会出来，但是数据点又比较小，很难点中，用户反馈很不好用； 为了用户体验更好，只好改代码">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/15/echarts 多个series图表的tooltip自定义/"/>
+
+
+
+
+
+  <title>echarts 多个series图表的tooltip自定义 | 学与思</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学与思</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/15/echarts 多个series图表的tooltip自定义/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张小飞">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学与思">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">echarts 多个series图表的tooltip自定义</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T21:24:59+08:00">
+                2018-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ECharts/" itemprop="url" rel="index">
+                    <span itemprop="name">ECharts</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p> 在使用echarts制作数据图表时，由于一张图表中包含多个series并且是多种类型数据（折线图，散点图，自定义图等），最初所有数据都是在各自的series.tooltip中定义提示信息，这种情况下默认tooltip的触发方式是‘item’的方式，但是折线图在这种方式下的使用就很蛋疼了，必须要点中数据点，提示才会出来，但是数据点又比较小，很难点中，用户反馈很不好用；<br> 为了用户体验更好，只好改代码了，本来打算只对折线图采用坐标触发（‘axis’），但是series.tooltip无法设置触发方式，只好更改option.tooptip触发方式为‘axis’,；在这里又碰到了问题，修改后的触发方式作用在所有的series上了，也就是之前自定义的series.tooltip全都无效了，查echarts官方文档才发现：</p>
+<blockquote>
+<p>series.tooltip 仅在 tooltip.trigger 为 ‘item’时有效。如意算盘落空了，没法子对不同类型的图采用不同的触发方式了；</p>
+</blockquote>
+<p>没办法，因为折线图的体验效果实在太差，必须要改，只好硬着头皮改了，所有的数据都采用‘axias’触发，然后针对不同的图表给出不同的提示，方法就是：在series.tooltip中使用formatter函数来自定义提示信息，依据params参数的seriesIndex（数据在series里位置）属性来判断图表类型；代码实现如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">drawChart1_2() &#123;</span><br><span class="line">       this.chart1_2 = echarts.init(document.getElementById(&apos;chart1_2&apos;));</span><br><span class="line">       this.chart1_2.setOption(&#123;</span><br><span class="line">        tooltip:&#123;</span><br><span class="line">            trigger:&apos;axis&apos;,</span><br><span class="line">            axisPointer:&#123;</span><br><span class="line">              type:&apos;line&apos;,</span><br><span class="line">              lineStyle:&#123;color:&apos;#333&apos;,&#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            backgroundColor:&apos;#333&apos;,</span><br><span class="line">            formatter:function(params)&#123;</span><br><span class="line">                let tip = auth.formatterTip(params);/*调用auth.js中的formatterTip函数，传入触发点信息参数params*/</span><br><span class="line">                return tip ;</span><br><span class="line">            &#125;,</span><br><span class="line">         &#125;,</span><br><span class="line">         xAxis: [],</span><br><span class="line">         yAxis: [],</span><br><span class="line">         grid: this.grid,</span><br><span class="line">         series: [/*多个series*/</span><br><span class="line">           &#123;</span><br><span class="line">             type: &apos;line&apos;,</span><br><span class="line">             name:&apos;Basal&apos;,</span><br><span class="line">             data:this.DataBasal,</span><br><span class="line">           &#125;,</span><br><span class="line">           &#123;</span><br><span class="line">             type: &apos;bar&apos;,</span><br><span class="line">             name:&apos;Bolus&apos;,</span><br><span class="line">             data:this.DataBolus,</span><br><span class="line">           &#125;,</span><br><span class="line">           &#123;</span><br><span class="line">             type: &apos;custom&apos;,</span><br><span class="line">             name:&apos;Extend bolus&apos;,</span><br><span class="line">             data:this.extend_bolus,</span><br><span class="line">           &#125;,</span><br><span class="line">           &#123;</span><br><span class="line">             type: &apos;scatter&apos;,</span><br><span class="line">             name:&apos;Alert&apos;,</span><br><span class="line">             data: this.pump_alarm,</span><br><span class="line">             symbol:&apos;image://static/legend/Alert.png&apos;,</span><br><span class="line">           &#125;,</span><br><span class="line">         ]</span><br><span class="line">       &#125;);</span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
+<p>auth.js中定义函数，对不同类型数据做处理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">formatterTip(params)&#123;</span><br><span class="line"> // console.log(params);</span><br><span class="line">  let that = this;</span><br><span class="line">  let tipArray = [0,0,0,0,0,0,0,0,0],tip = &apos;&apos;,timeDetail =&apos;&apos;;</span><br><span class="line">  params.map(function (e,i) &#123;</span><br><span class="line">    if(e.value[0]!==10)&#123;/*去除custom类型数据初始化的影响*/</span><br><span class="line">      let index = e.seriesIndex;</span><br><span class="line">      let name  = e.seriesName;</span><br><span class="line">      let value = e.value[1];</span><br><span class="line">      let date = e.value[0];</span><br><span class="line">      let time = that.formatterDate5(date);</span><br><span class="line">      let day = that.formatterDate4(date.getTime()/1000);</span><br><span class="line">      timeDetail = day+&apos;  &apos;+time[0]+&apos;:&apos;+time[1]+&apos;&lt;br&gt;&apos;;/*设置提示框头部时间信息*/</span><br><span class="line">      /*判断数据类型以及是否有数据*/  </span><br><span class="line">      if((index===0||index===2）&amp;&amp;value))&#123;</span><br><span class="line">       /*每一条提示前设置对应颜色的小圆点*/</span><br><span class="line">       let icon  =&quot; &lt;div style=&apos;background: #00ff4c;height: 8px;width: 8px;border-radius: 8px;margin-top:7px;margin-right: 4px;float: left;display: inline-block&apos;&gt;&lt;/div&gt;&quot;;  tipArray[index]= icon + name+&apos; :  &apos;+value+&apos;U/H&apos;;  &#125;</span><br><span class="line">      if(index===1&amp;&amp;value)&#123;</span><br><span class="line">      let icon  =&quot; &lt;div style=&apos;background: #ff0000;height: 8px;width: 8px;border-radius: 8px;margin-top:7px;margin-right: 4px;float: left;display: inline-block&apos;&gt;&lt;/div&gt;&quot;;</span><br><span class="line">        tipArray[1] = icon +&apos; Manual Suspend&apos;;</span><br><span class="line">      &#125;</span><br><span class="line">      if(index===3&amp;&amp;value)&#123;</span><br><span class="line">        let icon  =&quot; &lt;div style=&apos;background: #182f82;height: 8px;width: 8px;border-radius: 8px;margin-top:7px;margin-right: 4px;float: left;display: inline-block&apos;&gt;&lt;/div&gt;&quot;;</span><br><span class="line">        tipArray[3] = icon + name+&apos; :  &apos;+e.value[2]+&apos;, &apos;+value+&apos;U&apos;;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  tip =tip+timeDetail;</span><br><span class="line">  tipArray.map(function (e,i) &#123;</span><br><span class="line">    if(e)&#123;</span><br><span class="line">      tip = tip+e+&apos;&lt;br&gt;&apos;;/*组合所有提示信息*/</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  return tip;/*返回处理好的提示*/</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<pre><code>这样就完成 了echarts坐标轴触发方式下的多个series的tooltip自定义功能；上述函数中只给出了一部分series的处理方法；
+完成后效果还不错，可惜没法截图；
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ECharts/" rel="tag"># ECharts</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/15/vue中引入mousewheel事件及其兼容性处理/" rel="next" title="vue中引入mousewheel事件及其兼容性处理">
+                <i class="fa fa-chevron-left"></i> vue中引入mousewheel事件及其兼容性处理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/15/IE浏览器中的ajax缓存问题与new Date()兼容性问题的解决方法/" rel="prev" title="IE浏览器中的ajax缓存问题与new Date()兼容性问题的解决方法">
+                IE浏览器中的ajax缓存问题与new Date()兼容性问题的解决方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/author.jpg"
+                alt="张小飞" />
+            
+              <p class="site-author-name" itemprop="name">张小飞</p>
+              <p class="site-description motion-element" itemprop="description">自强不息 && 知行合一</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张小飞</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
