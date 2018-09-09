@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/author_favicon_32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/author_favicon_32x32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/author_favicon_16x16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/author_favicon_32x32.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Vue,npm," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;vue的插件一般用来添加全局性的功能，具体可分为：  添加全局方法或者属性； 添加全局资源（指令、过滤器等）； 通过全局 mixin 方法添加一些组件选项； 在 Vue.prototype 上 添加 Vue 实例方法； 创建一个库，提供自己的 API，同时提供上面提到的一个或多个功能；  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;一般来说我们在">
+<meta name="keywords" content="Vue,npm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="构建一个Vue插件并生成npm包初体验">
+<meta property="og:url" content="http://yoursite.com/2018/09/09/构建一个Vue插件并生成npm包初体验/index.html">
+<meta property="og:site_name" content="学与思">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;vue的插件一般用来添加全局性的功能，具体可分为：  添加全局方法或者属性； 添加全局资源（指令、过滤器等）； 通过全局 mixin 方法添加一些组件选项； 在 Vue.prototype 上 添加 Vue 实例方法； 创建一个库，提供自己的 API，同时提供上面提到的一个或多个功能；  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;一般来说我们在">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-09T09:21:38.202Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="构建一个Vue插件并生成npm包初体验">
+<meta name="twitter:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;vue的插件一般用来添加全局性的功能，具体可分为：  添加全局方法或者属性； 添加全局资源（指令、过滤器等）； 通过全局 mixin 方法添加一些组件选项； 在 Vue.prototype 上 添加 Vue 实例方法； 创建一个库，提供自己的 API，同时提供上面提到的一个或多个功能；  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;一般来说我们在">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/09/构建一个Vue插件并生成npm包初体验/"/>
+
+
+
+
+
+  <title>构建一个Vue插件并生成npm包初体验 | 学与思</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学与思</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/09/构建一个Vue插件并生成npm包初体验/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张小飞">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学与思">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">构建一个Vue插件并生成npm包初体验</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-09T17:21:38+08:00">
+                2018-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;vue的插件一般用来添加全局性的功能，具体可分为：</p>
+<ol>
+<li>添加全局方法或者属性；</li>
+<li>添加全局资源（指令、过滤器等）；</li>
+<li>通过全局 mixin 方法添加一些组件选项；</li>
+<li>在 Vue.prototype 上 添加 Vue 实例方法；</li>
+<li>创建一个库，提供自己的 API，同时提供上面提到的一个或多个功能；</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;一般来说我们在项目中倾向于第五种方式，可以通过创建一个js文件包含我们需要添加的多种全局性功能，指令、过滤器、实例方法之类的。这样的一个插件的构建也不难，主要就是使用vue提供的install 方法，传入Vue构造器以及你所能用到的参数对象；添加对应的功能，export出去，在需要的地方引入并Vue.use()方法注册即可；具体使用参考vue官网插件部分——<a href="https://cn.vuejs.org/v2/guide/plugins.html" target="_blank" rel="noopener">开发插件</a>。<br>&nbsp;&nbsp;&nbsp;&nbsp;这一次我的项目中需要添加‘反爬’功能，具体实现就是后端在检测到用户触发‘反爬’规则后返回指定错误码以及对应的验证页面，前端在全局请求中监测该错误码，在检测到错误码后通过插件加载验证页面让用户去验证，并将验证结果反馈给后端，在后端收到验证结果后移除验证页面。<br>&nbsp;&nbsp;&nbsp;&nbsp; 需求确定后，我们就知道这个插件需要做的事情就是创建一个vue组件实例=&gt;加载后端返回的页面=&gt;解析并执行其中的js文件=&gt;注册验证成功的全局回调函数。具体操作如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">const antiReptilian = &#123;</span><br><span class="line">  install(Vue, options) &#123;</span><br><span class="line">    Vue.$antirept = checkText =&gt; &#123;</span><br><span class="line">      if (!checkText) return;</span><br><span class="line">      let wrapperTemp = Vue.extend(&#123;</span><br><span class="line">        // 1、创建构造器，定义模板</span><br><span class="line">        template:</span><br><span class="line">          &apos;&lt;div id=&quot;antiReptWrapper&quot; style=&quot;z-index:9999 !important;&quot;&gt;&lt;/div&gt;&apos;</span><br><span class="line">      &#125;);</span><br><span class="line">      let antiObj = new wrapperTemp().$mount().$el; // 2、创建实例</span><br><span class="line">      antiObj.innerHTML = checkText;</span><br><span class="line">      initScripts(antiObj);//3、解析并顺序执行js</span><br><span class="line">      let App = document.getElementById(&apos;app&apos;);</span><br><span class="line">      let wrapper = document.getElementById(&apos;antiReptWrapper&apos;);</span><br><span class="line">      if (wrapper) &#123;</span><br><span class="line">        return;</span><br><span class="line">      &#125;</span><br><span class="line">      App.appendChild(antiObj); // 4、把创建的实例添加到App中</span><br><span class="line">      window.checkSucceed = res =&gt; &#123;</span><br><span class="line">        // 5、验证通过后移除实例</span><br><span class="line">        App.removeChild(antiObj);</span><br><span class="line">        window.location.reload();</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;需要注意的是通过设置innerHTML 的方式加载验证页面会导致内部的js文件不执行；因此我们还必须将验证页面的的js文件提取出来再重新插入，并且还要保证内部多个js文件的执行顺序，具体代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">//重新引入js文件</span><br><span class="line">const initScripts = function(cont) &#123;</span><br><span class="line">  let oldScripts = cont.getElementsByTagName(&apos;script&apos;);</span><br><span class="line">  let newScripts = [];</span><br><span class="line">  for (let i = 0; i &lt; oldScripts.length; i++) &#123;//提取内部js文件</span><br><span class="line">    let newScript = document.createElement(&apos;script&apos;);</span><br><span class="line">    newScript.type = &apos;text/javascript&apos;;</span><br><span class="line">    newScript.innerHTML = oldScripts[i].innerHTML;</span><br><span class="line">    if (oldScripts[i].src) &#123;</span><br><span class="line">      newScript.src = oldScripts[i].src;</span><br><span class="line">    &#125;</span><br><span class="line">    newScripts.push(newScript);</span><br><span class="line">  &#125;</span><br><span class="line">  while (oldScripts.length !== 0) &#123;</span><br><span class="line">    cont.removeChild(oldScripts[0]);//移除之前的js文件</span><br><span class="line">  &#125;</span><br><span class="line">  for (let i = 0; i &lt; newScripts.length; i++) &#123;</span><br><span class="line">    if (i == 0) &#123;</span><br><span class="line">      cont.appendChild(newScripts[i]);</span><br><span class="line">    &#125; else &#123;//保证每个js文件按照之前的顺序执行</span><br><span class="line">      newScripts[i - 1].onload = newScripts[</span><br><span class="line">        i - 1</span><br><span class="line">      ].onreadystatechange = function(event) &#123;</span><br><span class="line">        cont.appendChild(newScripts[i]);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;到此为止这个简单的插件功能就完成了，在需要的地方引入、注册并调用Vue.$antirept()方法传入要加载的页面即可；</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>将写好的插件生成npm包</strong>的方法也简单，分为以下几步：</p>
+<p>1、前往npm官网注册一个npm账号=&gt;<a href="https://www.npmjs.com/" target="_blank" rel="noopener">【npm官网】</a>;<br>2、将写好的插件生成一个简单的npm包：</p>
+<ol>
+<li>创建一个空文件夹，名称即为你的npm包的名称，注意名称不要与现有的npm包重复；</li>
+<li>切到该文件夹下，输入‘npm init’命令生成一个package.json文件，内部信息自定义；</li>
+<li>将写好的插件js文件拷到该文件夹下，重命名为index.js；</li>
+<li>在根目录下创建README.md文件，添加关于包的介绍信息（非必需）；<br>3、发布创建好的包：</li>
+<li>若第一次发布包，执行‘ npm adduser’命令，输入前面注册好的npm账号，密码和邮箱；</li>
+<li>若不是第一次发布包，执行‘ npm login’命令进行登录，同样输入npm账号，密码和邮箱；</li>
+<li>登录成功以后，在刚才的文件夹下，执行‘npm publish’命令，即可发布该npm包；</li>
+<li>若要更新之前的包，只需要更改版本号，再执行‘npm publish’命令即可；<br>&nbsp;&nbsp;&nbsp;&nbsp;至此一个简单的vue插件就生成了一个npm包了，以后使用就不需要加载js文件，可以直接通过npm的方式引入了，其它的小伙伴也可以一起愉快的玩耍了==&gt;全剧终。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+            <a href="/tags/npm/" rel="tag"># npm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/01/一个贴近实际的原型链继承的列子/" rel="next" title="一个贴近实际的原型链继承的列子">
+                <i class="fa fa-chevron-left"></i> 一个贴近实际的原型链继承的列子
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/author.jpg"
+                alt="张小飞" />
+            
+              <p class="site-author-name" itemprop="name">张小飞</p>
+              <p class="site-description motion-element" itemprop="description">自强不息 && 知行合一</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张小飞</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
