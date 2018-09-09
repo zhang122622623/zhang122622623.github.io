@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="学与思">
 <meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;vue的插件一般用来添加全局性的功能，具体可分为：  添加全局方法或者属性； 添加全局资源（指令、过滤器等）； 通过全局 mixin 方法添加一些组件选项； 在 Vue.prototype 上 添加 Vue 实例方法； 创建一个库，提供自己的 API，同时提供上面提到的一个或多个功能；  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;一般来说我们在">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-09T09:28:38.252Z">
+<meta property="og:updated_time" content="2018-09-09T09:33:38.634Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="构建一个Vue插件并生成npm包初体验">
 <meta name="twitter:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;vue的插件一般用来添加全局性的功能，具体可分为：  添加全局方法或者属性； 添加全局资源（指令、过滤器等）； 通过全局 mixin 方法添加一些组件选项； 在 Vue.prototype 上 添加 Vue 实例方法； 创建一个库，提供自己的 API，同时提供上面提到的一个或多个功能；  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;一般来说我们在">
@@ -282,7 +282,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-09T17:28:38+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-09T17:33:38+08:00">
                 2018-09-09
               </time>
             
@@ -356,20 +356,20 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">//重新引入js文件</span><br><span class="line">const initScripts = function(cont) &#123;</span><br><span class="line">  let oldScripts = cont.getElementsByTagName(&apos;script&apos;);</span><br><span class="line">  let newScripts = [];</span><br><span class="line">  for (let i = 0; i &lt; oldScripts.length; i++) &#123;//提取内部js文件</span><br><span class="line">    let newScript = document.createElement(&apos;script&apos;);</span><br><span class="line">    newScript.type = &apos;text/javascript&apos;;</span><br><span class="line">    newScript.innerHTML = oldScripts[i].innerHTML;</span><br><span class="line">    if (oldScripts[i].src) &#123;</span><br><span class="line">      newScript.src = oldScripts[i].src;</span><br><span class="line">    &#125;</span><br><span class="line">    newScripts.push(newScript);</span><br><span class="line">  &#125;</span><br><span class="line">  while (oldScripts.length !== 0) &#123;</span><br><span class="line">    cont.removeChild(oldScripts[0]);//移除之前的js文件</span><br><span class="line">  &#125;</span><br><span class="line">  for (let i = 0; i &lt; newScripts.length; i++) &#123;</span><br><span class="line">    if (i == 0) &#123;</span><br><span class="line">      cont.appendChild(newScripts[i]);</span><br><span class="line">    &#125; else &#123;//保证每个js文件按照之前的顺序执行</span><br><span class="line">      newScripts[i - 1].onload = newScripts[</span><br><span class="line">        i - 1</span><br><span class="line">      ].onreadystatechange = function(event) &#123;</span><br><span class="line">        cont.appendChild(newScripts[i]);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;到此为止这个简单的插件功能就完成了，在需要的地方引入、注册并调用Vue.$antirept()方法传入要加载的页面即可；</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>将写好的插件生成npm包</strong>的方法也简单，分为以下几步：</p>
-<p>1、前往npm官网注册一个npm账号=&gt;<a href="https://www.npmjs.com/" target="_blank" rel="noopener">【npm官网】</a>;<br>2、将写好的插件生成一个简单的npm包：</p>
+<p>1、前往npm官网注册一个npm账号=&gt;<a href="https://www.npmjs.com/" target="_blank" rel="noopener">【npm官网】</a>;</p>
+<p>2、将写好的插件生成一个简单的npm包：</p>
 <ol>
 <li>创建一个空文件夹，名称即为你的npm包的名称，注意名称不要与现有的npm包重复；</li>
 <li>切到该文件夹下，输入‘npm init’命令生成一个package.json文件，内部信息自定义；</li>
 <li>将写好的插件js文件拷到该文件夹下，重命名为index.js；</li>
-<li>在根目录下创建README.md文件，添加关于包的介绍信息（非必需）；<br>3、发布创建好的包：</li>
-<li>若第一次发布包，执行‘ npm adduser’命令，输入前面注册好的npm账号，密码和邮箱；<ol>
-<li>若不是第一次发布包，执行‘ npm login’命令进行登录，同样输入npm账号，密码和邮箱；</li>
-<li>登录成功以后，在刚才的文件夹下，执行‘npm publish’命令，即可发布该npm包；</li>
-<li>若要更新之前的包，只需要更改版本号，再执行‘npm publish’命令即可；</li>
+<li>在根目录下创建README.md文件，添加关于包的介绍信息（非必需）；</li>
 </ol>
-</li>
-</ol>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;至此一个简单的vue插件就生成了一个npm包了，以后使用就不需要加载js文件，可以直接通过npm的方式引入了，其它的小伙伴也可以一起愉快的玩耍了==&gt;全剧终。</p>
+<p>3、发布创建好的包：</p>
+<pre><code>1. 若第一次发布包，执行‘ npm adduser’命令，输入前面注册好的npm账号，密码和邮箱；
+2. 若不是第一次发布包，执行‘ npm login’命令进行登录，同样输入npm账号，密码和邮箱；
+3.  登录成功以后，在刚才的文件夹下，执行‘npm publish’命令，即可发布该npm包；
+4.  若要更新之前的包，只需要更改版本号，再执行‘npm publish’命令即可；
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;至此一个简单的vue插件就生成了一个npm包了，以后使用就不需要加载js文件，可以直接通过npm的方式引入了，其它的小伙伴也可以一起愉快的玩耍了==&gt;全剧终。</p>
 
       
     </div>
