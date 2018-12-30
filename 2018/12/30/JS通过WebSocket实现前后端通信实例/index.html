@@ -79,18 +79,25 @@
 
 
 
-<meta name="description" content="今天面试被问到js中深浅拷贝的问题，当时回答的并不好，回来搜索了一波，现做下总结： js中针对引用类型的拷贝分为两种：深拷贝和浅拷贝；浅拷贝比较简单，分为两类，一类是直接对源对象进行拷贝，实际上就是引用类型的赋值，拷贝的仅仅是对象引用，如： 1234var obj = &amp;#123;a:1,b:2,c:3&amp;#125;;var newObj = obj;newObj.a = 4;console.log">
+<meta name="description" content="1、WebSocket是什么？&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;WebSocket是一种网络通信协议， 一种由HTML5 开始提供的、在单个 TCP 连接上进行全双工通讯的协议。它和HTTP协议的最大区别在于：HTTP 协议是一种无状态的、无连接的、单向的应用层协议当客户端想要知道服务端的变化时，HTTP协议必须使用“轮询”的方式，效率很低；而WebSocke">
 <meta name="keywords" content="JavaScript,算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js中的深拷贝与浅拷贝">
-<meta property="og:url" content="http://yoursite.com/2018/03/12/js中的深拷贝与浅拷贝/index.html">
+<meta property="og:title" content="JS通过WebSocket实现前后端通信实例">
+<meta property="og:url" content="http://yoursite.com/2018/12/30/JS通过WebSocket实现前后端通信实例/index.html">
 <meta property="og:site_name" content="学与思">
-<meta property="og:description" content="今天面试被问到js中深浅拷贝的问题，当时回答的并不好，回来搜索了一波，现做下总结： js中针对引用类型的拷贝分为两种：深拷贝和浅拷贝；浅拷贝比较简单，分为两类，一类是直接对源对象进行拷贝，实际上就是引用类型的赋值，拷贝的仅仅是对象引用，如： 1234var obj = &amp;#123;a:1,b:2,c:3&amp;#125;;var newObj = obj;newObj.a = 4;console.log">
+<meta property="og:description" content="1、WebSocket是什么？&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;WebSocket是一种网络通信协议， 一种由HTML5 开始提供的、在单个 TCP 连接上进行全双工通讯的协议。它和HTTP协议的最大区别在于：HTTP 协议是一种无状态的、无连接的、单向的应用层协议当客户端想要知道服务端的变化时，HTTP协议必须使用“轮询”的方式，效率很低；而WebSocke">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-12T13:28:43.939Z">
+<meta property="og:image" content="http://yoursite.com/images/1.png">
+<meta property="og:image" content="http://yoursite.com/images/2.png">
+<meta property="og:image" content="http://yoursite.com/images/3.png">
+<meta property="og:image" content="http://yoursite.com/images/4.png">
+<meta property="og:image" content="http://yoursite.com/images/5.png">
+<meta property="og:image" content="http://yoursite.com/images/6.png">
+<meta property="og:updated_time" content="2018-12-30T08:24:54.725Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="js中的深拷贝与浅拷贝">
-<meta name="twitter:description" content="今天面试被问到js中深浅拷贝的问题，当时回答的并不好，回来搜索了一波，现做下总结： js中针对引用类型的拷贝分为两种：深拷贝和浅拷贝；浅拷贝比较简单，分为两类，一类是直接对源对象进行拷贝，实际上就是引用类型的赋值，拷贝的仅仅是对象引用，如： 1234var obj = &amp;#123;a:1,b:2,c:3&amp;#125;;var newObj = obj;newObj.a = 4;console.log">
+<meta name="twitter:title" content="JS通过WebSocket实现前后端通信实例">
+<meta name="twitter:description" content="1、WebSocket是什么？&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;WebSocket是一种网络通信协议， 一种由HTML5 开始提供的、在单个 TCP 连接上进行全双工通讯的协议。它和HTTP协议的最大区别在于：HTTP 协议是一种无状态的、无连接的、单向的应用层协议当客户端想要知道服务端的变化时，HTTP协议必须使用“轮询”的方式，效率很低；而WebSocke">
+<meta name="twitter:image" content="http://yoursite.com/images/1.png">
 
 
 
@@ -120,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/03/12/js中的深拷贝与浅拷贝/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/12/30/JS通过WebSocket实现前后端通信实例/"/>
 
 
 
 
 
-  <title>js中的深拷贝与浅拷贝 | 学与思</title>
+  <title>JS通过WebSocket实现前后端通信实例 | 学与思</title>
   
 
 
@@ -253,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/12/js中的深拷贝与浅拷贝/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/30/JS通过WebSocket实现前后端通信实例/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张小飞">
@@ -270,7 +277,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">js中的深拷贝与浅拷贝</h1>
+          <h1 class="post-title" itemprop="name headline">JS通过WebSocket实现前后端通信实例</h1>
         
 
         <div class="post-meta">
@@ -282,8 +289,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-12T21:28:43+08:00">
-                2018-03-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-30T16:24:54+08:00">
+                2018-12-30
               </time>
             
 
@@ -342,12 +349,17 @@
       
 
       
-        <p>今天面试被问到js中深浅拷贝的问题，当时回答的并不好，回来搜索了一波，现做下总结：<br> js中针对引用类型的拷贝分为两种：深拷贝和浅拷贝；浅拷贝比较简单，分为两类，一类是直接对源对象进行拷贝，实际上就是引用类型的赋值，拷贝的仅仅是对象引用，如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;a:1,b:2,c:3&#125;;</span><br><span class="line">var newObj = obj;</span><br><span class="line">newObj.a = 4;</span><br><span class="line">console.log(obj.a);// 4,浅拷贝，拷贝的仅仅是引用</span><br></pre></td></tr></table></figure>
-<p>另一类浅拷贝，则是对引用类型的属性进行拷贝，但是属性值如果也是引用类型，则拷贝的就是该属性值的对象引用，如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var obj1 = &#123;a:1,b:2,c:&#123; c1:3，c2:4&#125;&#125;;</span><br><span class="line">var newObj1 = &#123;&#125;;</span><br><span class="line">for(var i in obj1)&#123;</span><br><span class="line">  newObj1[i] = obj1[i];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">newObj1.a = 6;</span><br><span class="line">newObj1.c.c1=7;</span><br><span class="line">console.log(obj1.a); // 1，基础类型，无影响</span><br><span class="line">console.log(obj1.c.c1); // 7，引用类型，拷贝引用，相互影响</span><br></pre></td></tr></table></figure>
-<p>由上面两个简单的例子我们可以看到，浅拷贝在处理引用类型的时候是有弊端的。因此，引用类型数据的复制更好的办法就是采用深拷贝，对源对象以及其属性进行遍历，其实就是采用递归的方式深入到对象最底层，把所有的值都拷贝过来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var initObj= &#123;a:12,c:[1,2,3],d:&#123;&apos;sex&apos;:&apos;male&apos;,&apos;home&apos;:&#123;&apos;pro&apos;:&apos;jiangxi&apos;,&apos;city&apos;:&apos;ganzhou&apos;&#125;&#125;&#125;;</span><br><span class="line">function deepCopy(obj1)&#123;</span><br><span class="line">  var obj2 = (Array.isArray(obj1))?[]:&#123;&#125;; //给新对象或数组一个初始值</span><br><span class="line">  for(var key in obj1)&#123;</span><br><span class="line">    var value = obj1[key];</span><br><span class="line">    if(typeof value=== &apos;object&apos;)&#123;  //将引用类型和基础类型分开处理</span><br><span class="line">       obj2[key] = arguments.callee(value);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">       obj2[key] =value; </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return obj2;</span><br><span class="line">&#125;</span><br><span class="line">var newObj = deepCopy(initObj);</span><br><span class="line">console.log(newObj);//&#123;a:12,c:[1,2,3],d:&#123;sex&apos;:&apos;male&apos;,&apos;home&apos;:&#123;&apos;pro&apos;:&apos;jiangxi&apos;,&apos;city&apos;:&apos;ganzhou&apos;&#125;&#125;&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>用深拷贝实现的引用类型复制，则不会对源对象产生影响，上述函数即可很方便地实现深拷贝；</p>
+        <p>1、WebSocket是什么？<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WebSocket是一种网络通信协议， 一种由HTML5 开始提供的、在单个 TCP 连接上进行<strong>全双工</strong>通讯的协议。它和HTTP协议的最大区别在于：HTTP 协议是一种<strong>无状态的、无连接的、单向的</strong>应用层协议当客户端想要知道服务端的变化时，HTTP协议必须使用“轮询”的方式，效率很低；而WebSocket只需一次连接，便可以让服务端直接向客户端推送信息，从而告别轮询。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面来构建一个基于JS的WebSocket通信实例：</p>
+<p>2、服务端<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为与客户端一致，后端引入ws模块，构建服务器，监听对应事件，具体代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">var ws = require(&quot;ws&quot;); // 加载ws模块;</span><br><span class="line"></span><br><span class="line">// 启动websocket服务器</span><br><span class="line">var wsServer = new ws.Server(&#123;</span><br><span class="line">    host: &quot;127.0.0.1&quot;,</span><br><span class="line">    port: 8183,</span><br><span class="line">&#125;);</span><br><span class="line">console.log(&apos;WebSocket sever is listening at port localhost:8183&apos;);</span><br><span class="line"></span><br><span class="line">// 建立连接，监听客户端请求，绑定对应事件;</span><br><span class="line">function on_server_client_comming (wsObj) &#123;</span><br><span class="line">    console.log(&quot;request comming&quot;);</span><br><span class="line">    websocket_add_listener(wsObj);</span><br><span class="line">&#125;</span><br><span class="line">wsServer.on(&quot;connection&quot;, on_server_client_comming);</span><br><span class="line"></span><br><span class="line">// 各事件处理逻辑</span><br><span class="line">function websocket_add_listener(wsObj) &#123;</span><br><span class="line">    wsObj.on(&quot;message&quot;, function(data) &#123;</span><br><span class="line">        console.log(&quot;request data:&quot;+data);</span><br><span class="line">        setTimeout(()=&gt;&#123; //收到请求，回复</span><br><span class="line">            wsObj.send(&quot;1秒延时，收到了，正在处理&quot;);</span><br><span class="line">        &#125;,1000);</span><br><span class="line">        /*****</span><br><span class="line">         * 处理业务逻辑</span><br><span class="line">         */</span><br><span class="line">        setTimeout(()=&gt;&#123; //完成请求，回复</span><br><span class="line">            wsObj.send(&quot;3秒延时，返回数据，关闭连接&quot;);</span><br><span class="line">            wsObj.close()</span><br><span class="line">        &#125;,3000);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    wsObj.on(&quot;close&quot;, function() &#123;</span><br><span class="line">        console.log(&quot;request close&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    wsObj.on(&quot;error&quot;, function(err) &#123;</span><br><span class="line">        console.log(&quot;request error&quot;, err);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行该js构建服务器,结果如下：<br><img src="../../../../images/1.png"></p>
+<p>3、客户端<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;支持H5的浏览器均内置WebSocket 对象，直接引用即可，具体代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;WebSocket Test&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    var wsObj = new WebSocket(&quot;ws://127.0.0.1:8183&quot;);   //建立连接</span><br><span class="line">    wsObj.onopen = function()&#123;  //发送请求</span><br><span class="line">        alert(&quot;open&quot;);</span><br><span class="line">        wsObj.send(&quot;Hello WebSocket&quot;);</span><br><span class="line">    &#125;;</span><br><span class="line">    wsObj.onmessage = function(ev)&#123;  //获取后端响应</span><br><span class="line">        alert(ev.data);</span><br><span class="line">    &#125;;</span><br><span class="line">    wsObj.onclose = function(ev)&#123;</span><br><span class="line">        alert(&quot;close&quot;);</span><br><span class="line">    &#125;;</span><br><span class="line">    wsObj.onerror = function(ev)&#123;</span><br><span class="line">        alert(&quot;error&quot;);</span><br><span class="line">    &#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>在浏览器中打开该页面，依次看到如下结果<br><img src="../../../../images/2.png"><br><img src="../../../../images/3.png"><br><img src="../../../../images/4.png"><br><img src="../../../../images/5.png"></p>
+<p>此时，服务端控制台打印出的信息为：<br><img src="../../../../images/6.png"></p>
+<p>至此，一个基于JS的WebSocket通信实例构建完毕。</p>
+<p>更多关于WebSocket的知识点，可以<a href="https://www.cnblogs.com/jingmoxukong/p/7755643.html" target="_blank" rel="noopener">点击查看</a>这里。</p>
 
       
     </div>
@@ -380,8 +392,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/12/js获取、比较浏览器名称和版本号的简便方法/" rel="next" title="js获取、比较浏览器名称和版本号的简便方法">
-                <i class="fa fa-chevron-left"></i> js获取、比较浏览器名称和版本号的简便方法
+              <a href="/2018/09/09/构建一个Vue插件并生成npm包初体验/" rel="next" title="构建一个Vue插件并生成npm包初体验">
+                <i class="fa fa-chevron-left"></i> 构建一个Vue插件并生成npm包初体验
               </a>
             
           </div>
@@ -389,10 +401,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/13/CSS居中方式总结/" rel="prev" title="CSS居中方式总结">
-                CSS居中方式总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
