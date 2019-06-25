@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Vue,Vuex," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,16 @@
 
 
 
-<meta name="description" content="123456789101112computed:&amp;#123;     getLanguage()&amp;#123;       return this.$store.state.language;     &amp;#125;   &amp;#125;,   watch:&amp;#123;     getLanguage(val)&amp;#123;        this.user = this.$t(&amp;apos;user&amp;apo">
-<meta name="keywords" content="Vue,Vuex">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Vuex state 中数据的实时监控与响应">
-<meta property="og:url" content="http://yoursite.com/2018/01/15/Vuex state 中数据的实时监控与响应/index.html">
+<meta name="description" content="自强不息 &amp;&amp; 知行合一">
+<meta property="og:type" content="website">
+<meta property="og:title" content="学与思">
+<meta property="og:url" content="http://yoursite.com/page/6/index.html">
 <meta property="og:site_name" content="学与思">
-<meta property="og:description" content="123456789101112computed:&amp;#123;     getLanguage()&amp;#123;       return this.$store.state.language;     &amp;#125;   &amp;#125;,   watch:&amp;#123;     getLanguage(val)&amp;#123;        this.user = this.$t(&amp;apos;user&amp;apo">
+<meta property="og:description" content="自强不息 &amp;&amp; 知行合一">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-15T13:06:55.916Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vuex state 中数据的实时监控与响应">
-<meta name="twitter:description" content="123456789101112computed:&amp;#123;     getLanguage()&amp;#123;       return this.$store.state.language;     &amp;#125;   &amp;#125;,   watch:&amp;#123;     getLanguage(val)&amp;#123;        this.user = this.$t(&amp;apos;user&amp;apo">
+<meta name="twitter:title" content="学与思">
+<meta name="twitter:description" content="自强不息 &amp;&amp; 知行合一">
 
 
 
@@ -120,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/01/15/Vuex state 中数据的实时监控与响应/"/>
+  <link rel="canonical" href="http://yoursite.com/page/6/"/>
 
 
 
 
 
-  <title>Vuex state 中数据的实时监控与响应 | 学与思</title>
+  <title>学与思</title>
   
 
 
@@ -145,7 +143,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -238,9 +237,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -253,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/15/Vuex state 中数据的实时监控与响应/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/09/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张小飞">
@@ -270,7 +269,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Vuex state 中数据的实时监控与响应</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/09/hello-world/" itemprop="url">Hello World</a></h1>
         
 
         <div class="post-meta">
@@ -282,8 +283,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T21:06:55+08:00">
-                2018-01-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T21:27:33+08:00">
+                2018-01-09
               </time>
             
 
@@ -292,28 +293,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -342,10 +321,18 @@
       
 
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">computed:&#123;</span><br><span class="line">     getLanguage()&#123;</span><br><span class="line">       return this.$store.state.language;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;,</span><br><span class="line">   watch:&#123;</span><br><span class="line">     getLanguage(val)&#123;</span><br><span class="line">        this.user = this.$t(&apos;user&apos;);</span><br><span class="line">        this.pas = this.$t(&apos;password&apos;);</span><br><span class="line">        //console.log(val);</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;,</span><br></pre></td></tr></table></figure>
-<p> 如上，state中的数据变化后，在computed中实时返回变化的数据，然后在watch中做出相应的操作；<br> 这样就实现了对state中数据变化的实时监控与响应；</p>
-<p>注：上述代码实现多语言切换功能，根据state中language参数的实时变化来改变对应参数的中英文类型；</p>
-
+        
+          
+          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/09/hello-world/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
       
     </div>
     
@@ -360,42 +347,14 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Vue/" rel="tag"># Vue</a>
-          
-            <a href="/tags/Vuex/" rel="tag"># Vuex</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/01/13/JS高程知识点总结-6（面向对象）/" rel="next" title="JS高程知识点总结-6（面向对象）">
-                <i class="fa fa-chevron-left"></i> JS高程知识点总结-6（面向对象）
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/15/vue 后台数据获取与组件渲染、页面刷新数据消失的问题小结/" rel="prev" title="vue 后台数据获取与组件渲染、页面刷新数据消失的问题小结">
-                vue 后台数据获取与组件渲染、页面刷新数据消失的问题小结 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -405,11 +364,14 @@
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
+
 
 
           </div>
@@ -417,10 +379,6 @@
 
 
           
-
-  
-
-
 
         </div>
         
@@ -639,10 +597,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 

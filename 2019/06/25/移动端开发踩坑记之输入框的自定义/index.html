@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript," />
+  <meta name="keywords" content="JavaScript,移动端," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="一、对象的概念1、js中对象：无序属性的集合，键值对，其内部属性（无法直接访问）有：数据属性和访问器属性；数据属性的4个特性（描述符）：  [[Configurable]]:决定能否修改删除属性，默认true;  [[Enumerable]]:决定是否可枚举（能否用for-in返回），默认true；  [[Writable]]:属性值能否修改，默认true；  [[Value]]:保存属性值，默认">
-<meta name="keywords" content="JavaScript">
+<meta name="description" content="最近做移动端项目，由于之前没太多经验，所以踩了挺多的坑，现在抽空总结下,防止以后重蹈覆辙，顺便给需要的人一些帮助。项目背景：使用react框架构建 企业微信应用程序遭遇问题：1、输入框在IOS系统中，键盘‘换行’改为‘搜索’实现方法：设置input标签type=’search’，同时在input标签外加一个form标签，并设置action=’javascript:void 0’（这是重点，用来阻止">
+<meta name="keywords" content="JavaScript,移动端">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS高程知识点总结-6（面向对象）">
-<meta property="og:url" content="http://yoursite.com/2018/01/13/JS高程知识点总结-6（面向对象）/index.html">
+<meta property="og:title" content="移动端开发踩坑记之输入框的自定义">
+<meta property="og:url" content="http://yoursite.com/2019/06/25/移动端开发踩坑记之输入框的自定义/index.html">
 <meta property="og:site_name" content="学与思">
-<meta property="og:description" content="一、对象的概念1、js中对象：无序属性的集合，键值对，其内部属性（无法直接访问）有：数据属性和访问器属性；数据属性的4个特性（描述符）：  [[Configurable]]:决定能否修改删除属性，默认true;  [[Enumerable]]:决定是否可枚举（能否用for-in返回），默认true；  [[Writable]]:属性值能否修改，默认true；  [[Value]]:保存属性值，默认">
+<meta property="og:description" content="最近做移动端项目，由于之前没太多经验，所以踩了挺多的坑，现在抽空总结下,防止以后重蹈覆辙，顺便给需要的人一些帮助。项目背景：使用react框架构建 企业微信应用程序遭遇问题：1、输入框在IOS系统中，键盘‘换行’改为‘搜索’实现方法：设置input标签type=’search’，同时在input标签外加一个form标签，并设置action=’javascript:void 0’（这是重点，用来阻止">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-13T13:25:04.443Z">
+<meta property="og:updated_time" content="2019-06-25T12:46:38.062Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JS高程知识点总结-6（面向对象）">
-<meta name="twitter:description" content="一、对象的概念1、js中对象：无序属性的集合，键值对，其内部属性（无法直接访问）有：数据属性和访问器属性；数据属性的4个特性（描述符）：  [[Configurable]]:决定能否修改删除属性，默认true;  [[Enumerable]]:决定是否可枚举（能否用for-in返回），默认true；  [[Writable]]:属性值能否修改，默认true；  [[Value]]:保存属性值，默认">
+<meta name="twitter:title" content="移动端开发踩坑记之输入框的自定义">
+<meta name="twitter:description" content="最近做移动端项目，由于之前没太多经验，所以踩了挺多的坑，现在抽空总结下,防止以后重蹈覆辙，顺便给需要的人一些帮助。项目背景：使用react框架构建 企业微信应用程序遭遇问题：1、输入框在IOS系统中，键盘‘换行’改为‘搜索’实现方法：设置input标签type=’search’，同时在input标签外加一个form标签，并设置action=’javascript:void 0’（这是重点，用来阻止">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/01/13/JS高程知识点总结-6（面向对象）/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/06/25/移动端开发踩坑记之输入框的自定义/"/>
 
 
 
 
 
-  <title>JS高程知识点总结-6（面向对象） | 学与思</title>
+  <title>移动端开发踩坑记之输入框的自定义 | 学与思</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/JS高程知识点总结-6（面向对象）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/25/移动端开发踩坑记之输入框的自定义/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张小飞">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JS高程知识点总结-6（面向对象）</h1>
+          <h1 class="post-title" itemprop="name headline">移动端开发踩坑记之输入框的自定义</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T21:25:04+08:00">
-                2018-01-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-25T20:46:38+08:00">
+                2019-06-25
               </time>
             
 
@@ -342,10 +342,13 @@
       
 
       
-        <p>一、对象的概念<br>1、js中对象：无序属性的集合，键值对，其内部属性（无法直接访问）有：数据属性和访问器属性；<br>数据属性的4个特性（描述符）：<br>  [[Configurable]]:决定能否修改删除属性，默认true;<br>  [[Enumerable]]:决定是否可枚举（能否用for-in返回），默认true；<br>  [[Writable]]:属性值能否修改，默认true；<br>  [[Value]]:保存属性值，默认undefined；<br> 修改属性必须用Object.defineProperty()方法，接收三个参数：对象名，属性名，特性名称；<br> Configurable只能修改一次；删除属性要使用delete(propertyName)方法；<br>访问器属性(不包含数据值，包含一对getter/setter函数)，其4个特性（描述符）：<br>  [[Configurable]]:决定能否修改删除属性，默认true;<br>  [[Enumerable]]:决定是否可枚举（能否用for-in返回），默认true；<br>  [[Get]]:读函数，默认undefined；<br>  [[Set]]:写函数，默认undefined；<br> 访问器属性必须用Object.defineProperty()方法定义（P141）；<br>2、ES5定义多个属性的方法：Object.defineProperties(),接收两个对象，第一个是要修改和添加属性的对象，第二个是属性集合；<br>  注：在调用Object.defineProperty()和Object.defineProperties()方法时，<br>  如果不指定，那Configurable、Enumerable、Writable特性的值均默认为false；<br>3、获取属性描述符：Object.getOwnPropertyDescriptor()方法，接收两个参数，对象名和属性名，<br>  根据属性的类型（数据属性和访问器属性），获取其对应的描述符；</p>
-<p>二、对象的定义<br>1、工厂模式：封装属性和方法接口，创建多个相似对象，缺点是，无法对知道生成的对象类型；<br>2、自定义构造函数模式：<br>  自定义构造函数（构造函数首字母必须大写，普通函数小写），用new操作符调用；缺点是每个方法在每个实例上都要创建一遍,即函数不能复用；<br>3、原型模式(P148)：<br> 3.1、概念<br>    Person:构造函数；Person.prototype：原型对象；Person.prototype.constructor:指向Person;<br>   通过构造函数的prototype属性，在其原型对象上定义实例的信息；构造函数的prototype属性指向原型对象；<br>   原型对象自动获得constructor（构造函数）属性，指向构造函数，<br>   使用构造函数生成的实例具有<a href="_proto_">[Prototype]</a>属性，指向构造函数的prototype属性（即原型对象）；<br>   使用Person.prototype.isPrototypeOf(实例)方法来检测某个对象是否是实例的原型对象；<br>   ES5 使用Object.getPrototypeOf(实例)来获取实例的原型对象；<br>   使用hasOwnProperty()方法来检测属性是否存在于实例本身；<br> 3.2、in操作符：<br>   单独使用：不论是实例属性还是原型属性，均返回true;<br>   for-in:返回所有可枚举属性（包括原型和实例属性），包括屏蔽了原型中不可枚举属性的实例属性（IE8及之前版本不适用）；<br>   ES5新增替换for-in方法：<br>      Object.keys():返回所有可枚举的实例属性；<br>      Object.getOwnPropertyNames():返回所有实例属性；<br>  默认情况下，原生constructor属性不可枚举；<br>4、现在默认使用自定义构造函数模式和原型模式组合的方式定义对象；构造函数用于定义实例属性，原型模式定义方法和共享的属性。<br>5、寄生构造函数模式：<br>   形式与工厂模式基本一致，不过其使用new操作符，并且包装函数使用的是构造函数；<br>   无返回值时默认返回新对象实例，在构造函数末尾加上return语句，可以重写返回值；<br>6、稳妥构造函数模式：<br>   不使用new操作符调用构造函数，构造函数内部不使用this;</p>
-<p>三、继承<br>1、OO语言一般有两种继承：接口继承（继承方法签名）和实现继承（继承实际的方法），JS中函数没有签名，只支持实现继承，由原型链实现；<br>2、原型链：<br>   让一个构造函数的原型等于另一个对象的实例，则该原型也有<em>proto</em>属性,指向对应对象的原型，如此重复就形成了原型链，<br>3、原型链实现继承带来的两个问题：<br>  1、引用类型值带来的问题，超类型的实例属性由于原型链的存在变成了子类型的原型属性，从而被子类型的所有实例共享；<br>  2、创建子类型实例时，无法向超类型构造函数传递参数；<br> 所以，一般不单独使用原型链；<br>4、借用构造函数：在子类型构造函数的内部调用超类型构造函数（call()、apply()方法），可传参；解决上述两个问题；<br>  新引入的问题：导致方法都在构造函数中定义，无法实现函数复用；所以不常用这种方法；<br>5、组合继承<br>  用原型链实现对原型属性和方法的继承，用构造函数实现对实例属性的继承；使每个实例有自己的属性，并且实现函数复用；<br>6、原型式继续：基于一个对象创建新对象，传入的对象作为构造函数的原型，相当于对该对象做浅复制；<br>  ES5新增Object.create()方法实现原型式继承，接受两个参数：作为对象原型的对象（可选）和为新对象定义额外属性的对象；<br>  第二个参数与Object.defineProperties()的第二个参数的格式一致，每个属性都由其描述符定义的；<br>7、寄生式继承：<br>  创建封装继承过程的函数，将其复制给新对象（调用了实现原型式继承的函数），对新对象做增强（增加其属性和方法），然后返回新对象；<br>  这种方式存在的问题和构造函数模式一致，无法实现函数复用，效率低。<br>8、寄生组合式继承：<br>  组合继承是最常用的继承模式，但是这两种模式下，会两次调用超类型构造函数，第一次是创建子类型原型时；第二次是在子类型构造函数内部；<br>  因此衍生寄生组合式继承，借用构造函数来继承属性，通过原型链的混成形式来继承方法；</p>
-<p>其实质就是在定义子类型原型时，采用寄生式继承方式，而不使用超类型的构造函数，</p>
+        <p>最近做移动端项目，由于之前没太多经验，所以踩了挺多的坑，现在抽空总结下,防止以后重蹈覆辙，顺便给需要的人一些帮助。<br>项目背景：使用react框架构建 企业微信应用程序<br>遭遇问题：<br>1、输入框在IOS系统中，键盘‘换行’改为‘搜索’<br>实现方法：设置input标签<strong>type=’search’</strong>，同时在input标签外加一个form标签，并设置<strong>action=’javascript:void 0’</strong>（这是重点，用来阻止表单默认提交操作，前面我在网上找的方法说是把action设置为‘javascript:return true’，但实际发现这样做在chrome中会报错，提示return只能在js代码块中使用），具体代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;form  action=&quot;javascript:void 0&quot; &gt;</span><br><span class="line">     &lt;input type=&#123;&apos;search&apos;&#125;  maxLength=&#123;&apos;10&apos;&#125;  ref=&#123;‘inputRef’&#125; /&gt;</span><br><span class="line"> &lt;/form&gt;</span><br></pre></td></tr></table></figure></p>
+<p>2、输入中文时重复触发的问题，移动端输入中文时，每输入一个字母都会触发input事件，导致重复触发；<br>解决方法：依据‘compositionstart’和‘compositionend’这两个输入事件，添加标志位来判断中文输入是否完成，这两个事件的详细描述可点击查看：<a href="https://developer.mozilla.org/zh-CN/docs/Web/Events/compositionstart" target="_blank" rel="noopener">compositionstart</a> 、<a href="https://developer.mozilla.org/zh-CN/docs/Web/Events/compositionend" target="_blank" rel="noopener">compositionend</a>；具体实现：<br>  1）、在组件生命周期钩子函数中添加事件监听<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount() &#123;</span><br><span class="line">   let inputRef = this.refs[&apos;inputRef&apos;];</span><br><span class="line">   inputRef.addEventListener(&apos;compositionstart&apos;, function(e)&#123;//非直接的文字输入时（键盘输入中文的拼音）</span><br><span class="line">     e.target.isNeedPrevent = true ;</span><br><span class="line">   &#125;);</span><br><span class="line">   inputRef.addEventListener(&apos;compositionend&apos;, function(e)&#123;//直接输入文字后（键盘选择真实的汉字）</span><br><span class="line">     e.target.isNeedPrevent = false ;</span><br><span class="line">   &#125;);</span><br><span class="line">   inputRef.addEventListener(&apos;input&apos;, this.Inputchange);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>2）、定义回调方法，根据标志位，判断是否进行操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Inputchange(e)&#123;</span><br><span class="line">  setTimeout(()=&gt;&#123;  //采用延时进行节流</span><br><span class="line">    if(!e.target.isNeedPrevent &amp;&amp; e.target.oldValue !== e.target.value)&#123;   //判断输入是否完成以及值是否变化</span><br><span class="line">      e.target.oldValue = e.target.value;</span><br><span class="line">      this.props.onInputChange(e.target.value); </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, 10);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、手机软键盘点击‘搜索’事件监听<br>实现方法：给输入框绑定‘keydown’事件，在回调函数中判断是否是点击‘搜索’键（keyCode=13），具体代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> inputRef.addEventListener(&apos;keydown&apos;, this.keyDownChange);</span><br><span class="line">....</span><br><span class="line">keyDownChange = (e) =&gt; &#123;</span><br><span class="line">   if(e.keyCode===13)&#123;  //</span><br><span class="line">     this.onGoToResult();</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>4、输入框光标定位问题，输入框如果存在之前的输入值，重新获取焦点时，光标会定位到文字的前面，因此需要手动设置光标的位置，实现代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">autoFocus()&#123;</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">    if(this.refs[&apos;inputRef&apos;])&#123;</span><br><span class="line">      this.refs[&apos;inputRef&apos;].focus();</span><br><span class="line">      let obj = this.refs[&apos;inputRef&apos;];</span><br><span class="line">      let len = obj.value.length;</span><br><span class="line">      if (document.selection) &#123;   //兼容IE</span><br><span class="line">        let sel = obj.createTextRange();</span><br><span class="line">        sel.moveStart(&apos;character&apos;, len);</span><br><span class="line">        sel.collapse();</span><br><span class="line">        sel.select();</span><br><span class="line">      &#125; else if (typeof obj.selectionStart == &apos;number&apos; &amp;&amp; typeof obj.selectionEnd == &apos;number&apos;) &#123; //chrome等浏览器</span><br><span class="line">        obj.selectionStart = obj.selectionEnd = len;/*光标由两部分组成，即selectionStart和selectionEnd，一般是相等的，但在选中一段文字全选时，他们的差值就是所选文字的个数。*/</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, 100);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上就是对移动端中输入框进行自定义的几个小技巧，总的来说，并不难理解，只是涉及到的知识点比较偏，需要自己亲自踩一遍坑才能知道怎么处理。</p>
+<p>另：<br> &nbsp; &nbsp; &nbsp; &nbsp;在ios系统中，还碰到一个貌似无解的问题，就是输入框的自动聚焦问题，调用input的focus()方法，在安卓系统中可以实现自动聚焦，我自己10.3版本的ios系统也没问题，但是在11.3以上版本中，这样调用不生效，原因貌似是高版本的ios系统禁止非用户操作让输入框聚焦；<br>  &nbsp; &nbsp; &nbsp; &nbsp;针对这个问题，在网上找过一些方法，都未实现，比如：<a href="https://segmentfault.com/q/1010000008580777" target="_blank" rel="noopener">处理ios自动聚焦</a>，实际操作下来并没有用；咨询公司经验更足的前端前辈，他们也说没法处理，最后只好搁置了。如果大家谁知道这个问题的答案，希望可以不吝赐教，万分感谢！ </p>
 
       
     </div>
@@ -365,6 +368,8 @@
           
             <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
           
+            <a href="/tags/移动端/" rel="tag"># 移动端</a>
+          
         </div>
       
 
@@ -376,8 +381,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/09/first/" rel="next" title="第一篇博客">
-                <i class="fa fa-chevron-left"></i> 第一篇博客
+              <a href="/2019/02/17/js高级程序设计知识点总结：3-基本概念/" rel="next" title="js高级程序设计知识点总结：3-基本概念">
+                <i class="fa fa-chevron-left"></i> js高级程序设计知识点总结：3-基本概念
               </a>
             
           </div>
@@ -385,10 +390,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/15/Vuex state 中数据的实时监控与响应/" rel="prev" title="Vuex state 中数据的实时监控与响应">
-                Vuex state 中数据的实时监控与响应 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
