@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript,算法," />
+  <meta name="keywords" content="JavaScript,移动端," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="1、冒泡排序(升序): 比较相邻的数,依次找出较大的数往后放；具体原理：冒泡排序原理 123456789101112131415161718function popSort(arr)&amp;#123;  let length = arr.length;  if(length&amp;gt;1)&amp;#123;    //n个数的数组需要排序（n-1）轮    for(let i=0;i&amp;lt;length-1;i+">
-<meta name="keywords" content="JavaScript,算法">
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;移动端项目经常碰到的一个问题是ios系统的橡皮筋效果处理，这个效果本身的体验还是挺不错的，但是当我们的应用出现遮罩层时，此时滑动页面，我们的预期是页面不进行滚动或者当前遮罩层内部滚动，而实际上滑动会触发橡皮筋效果，与预期不符。&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这一次我们的移动端项目中毫不意外碰到了这个问题，通过一些实践，最终还算完美地解">
+<meta name="keywords" content="JavaScript,移动端">
 <meta property="og:type" content="article">
-<meta property="og:title" content="js实现常见的三种排序方法（冒泡排序、快速排序、归并排序）">
-<meta property="og:url" content="http://yoursite.com/2018/01/15/js实现常见的三种排序方法（冒泡排序、快速排序、归并排序）/index.html">
+<meta property="og:title" content="移动端踩坑记录之ios系统橡皮筋效果处理">
+<meta property="og:url" content="http://yoursite.com/2019/06/29/移动端踩坑记录之ios系统橡皮筋效果处理/index.html">
 <meta property="og:site_name" content="学与思">
-<meta property="og:description" content="1、冒泡排序(升序): 比较相邻的数,依次找出较大的数往后放；具体原理：冒泡排序原理 123456789101112131415161718function popSort(arr)&amp;#123;  let length = arr.length;  if(length&amp;gt;1)&amp;#123;    //n个数的数组需要排序（n-1）轮    for(let i=0;i&amp;lt;length-1;i+">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;移动端项目经常碰到的一个问题是ios系统的橡皮筋效果处理，这个效果本身的体验还是挺不错的，但是当我们的应用出现遮罩层时，此时滑动页面，我们的预期是页面不进行滚动或者当前遮罩层内部滚动，而实际上滑动会触发橡皮筋效果，与预期不符。&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这一次我们的移动端项目中毫不意外碰到了这个问题，通过一些实践，最终还算完美地解">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-15T13:24:42.743Z">
+<meta property="og:updated_time" content="2019-06-29T09:38:43.551Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="js实现常见的三种排序方法（冒泡排序、快速排序、归并排序）">
-<meta name="twitter:description" content="1、冒泡排序(升序): 比较相邻的数,依次找出较大的数往后放；具体原理：冒泡排序原理 123456789101112131415161718function popSort(arr)&amp;#123;  let length = arr.length;  if(length&amp;gt;1)&amp;#123;    //n个数的数组需要排序（n-1）轮    for(let i=0;i&amp;lt;length-1;i+">
+<meta name="twitter:title" content="移动端踩坑记录之ios系统橡皮筋效果处理">
+<meta name="twitter:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;移动端项目经常碰到的一个问题是ios系统的橡皮筋效果处理，这个效果本身的体验还是挺不错的，但是当我们的应用出现遮罩层时，此时滑动页面，我们的预期是页面不进行滚动或者当前遮罩层内部滚动，而实际上滑动会触发橡皮筋效果，与预期不符。&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这一次我们的移动端项目中毫不意外碰到了这个问题，通过一些实践，最终还算完美地解">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/01/15/js实现常见的三种排序方法（冒泡排序、快速排序、归并排序）/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/06/29/移动端踩坑记录之ios系统橡皮筋效果处理/"/>
 
 
 
 
 
-  <title>js实现常见的三种排序方法（冒泡排序、快速排序、归并排序） | 学与思</title>
+  <title>移动端踩坑记录之ios系统橡皮筋效果处理 | 学与思</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/15/js实现常见的三种排序方法（冒泡排序、快速排序、归并排序）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/29/移动端踩坑记录之ios系统橡皮筋效果处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张小飞">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">js实现常见的三种排序方法（冒泡排序、快速排序、归并排序）</h1>
+          <h1 class="post-title" itemprop="name headline">移动端踩坑记录之ios系统橡皮筋效果处理</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T21:24:59+08:00">
-                2018-01-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-29T17:38:43+08:00">
+                2019-06-29
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -342,12 +342,9 @@
       
 
       
-        <p>1、冒泡排序(升序): 比较相邻的数,依次找出较大的数往后放；具体原理：冒泡排序原理</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function popSort(arr)&#123;</span><br><span class="line">  let length = arr.length;</span><br><span class="line">  if(length&gt;1)&#123;</span><br><span class="line">    //n个数的数组需要排序（n-1）轮</span><br><span class="line">    for(let i=0;i&lt;length-1;i++)&#123;</span><br><span class="line">       //每一轮比较的次数逐次递减</span><br><span class="line">       for(let j=0;j&lt;length-1-i;j++)&#123;</span><br><span class="line">         let a =0;</span><br><span class="line">         if(arr[j]&gt;arr[j+1])&#123;</span><br><span class="line">           a =arr[j]; </span><br><span class="line">           arr[j] =arr[j+1]; </span><br><span class="line">           arr[j+1] =a; </span><br><span class="line">         &#125;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125; </span><br><span class="line">  &#125;</span><br><span class="line">  return arr; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>2、快速排序步骤：找基准数（随机数找）=&gt;遍历数组，小于基准数放左边，大于放右边=&gt;对左右两边的子序列重复上述操作； 具体原理：快速排序原理</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function quickSort(arr)&#123;</span><br><span class="line"> let length =arr.length;</span><br><span class="line"> if(length&lt;=1)&#123; return arr;&#125;</span><br><span class="line"> //找到基准点并删除该数</span><br><span class="line"> let index = Math.floor(length/2), base= arr.splice(index,1)[0],left=[],right=[];</span><br><span class="line"> //把数组按基准点分成两个子数组</span><br><span class="line"> for(let i=0;i&lt;arr.length;i++)&#123;</span><br><span class="line">   let val = arr[i];</span><br><span class="line">   if(val&gt;base)&#123; right.push(val);&#125; </span><br><span class="line">   else&#123; left.push(val);&#125; </span><br><span class="line"> &#125; </span><br><span class="line"> //递归</span><br><span class="line"> return quickSort(left).concat([base],quickSort(right));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3、归并排序：将数组分为两个子数组，重复此操作直到所有的子数组都只含有一个元素，然后从底部开始两两合并；合并与分割同时进行；具体原理：归并排序原理</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> function mergeSort(arr)&#123;</span><br><span class="line">  let length = arr.length;</span><br><span class="line">  if(length&lt;=1|| (!Array.isArray(arr)))&#123;return arr;&#125;</span><br><span class="line">  //分割数组</span><br><span class="line">  let mid = Math.floor(length/2);</span><br><span class="line">  let left = arr.slice(0,mid);</span><br><span class="line">  let right = arr.slice(mid);</span><br><span class="line">  return mergeArr(mergeSort(left),mergeSort(right)) ;</span><br><span class="line">&#125;</span><br><span class="line"> //合并数组</span><br><span class="line"> function mergeArr(left,right)&#123;</span><br><span class="line"> let result =[];</span><br><span class="line"> while(left.length&gt;0&amp;&amp;right.length&gt;0)&#123;</span><br><span class="line">   if(left[0]&lt;right[0])&#123;</span><br><span class="line">    result.push(left.shift());</span><br><span class="line">   &#125;else&#123;</span><br><span class="line">    result.push(right.shift());</span><br><span class="line">   &#125; </span><br><span class="line">  &#125;</span><br><span class="line">  return result.concat(left,right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let array1 = [10,2,1,7,12,5,9,0];</span><br><span class="line">console.log(mergeSort(array1))//返回[0, 1, 2, 5, 7, 9, 10, 12]</span><br></pre></td></tr></table></figure>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;移动端项目经常碰到的一个问题是ios系统的橡皮筋效果处理，这个效果本身的体验还是挺不错的，但是当我们的应用出现遮罩层时，此时滑动页面，我们的预期是页面不进行滚动或者当前遮罩层内部滚动，而实际上滑动会触发橡皮筋效果，与预期不符。<br>&nbsp;&nbsp;&nbsp;&nbsp;这一次我们的移动端项目中毫不意外碰到了这个问题，通过一些实践，最终还算完美地解决了这个问题。处理方法的核心就是：监听遮罩层的’touchmove’事件，如果遮罩层不需要滑动，则直接阻止其默认行为；如果遮罩层需要滚动，则判断触发事件的‘target’元素是否属于遮罩层，不属于则直接阻止默认行为，属于则要判断元素滚动是否到达顶部或者底部，已到达顶部则阻止下拉，同理，到达底部则阻止上拉；而上拉下拉的判断，则通过元素‘touchstart’与‘touchmove’事件直接手指触摸的位置之差来判断。差值为负则上拉，为正则下拉。<br>&nbsp;&nbsp;&nbsp;&nbsp; 在我的react移动端项目中，有一组下拉框组件需要进行滑动处理，其中有遮罩层不可滚动的，也有需要滚动的，具体实现是在‘componentWillReceiveProps’这个钩子函数中，依据传入的props值来判断遮罩层是否开启以及该组件是否需要滚动，具体代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">componentWillReceiveProps(nextProps) &#123;</span><br><span class="line">  //nextProps.opened为true表示下拉框开启，出现遮罩层，stopMove为1表示不需要滚动</span><br><span class="line">  if(nextProps.opened &amp;&amp; nextProps.stopMove===1)&#123;</span><br><span class="line">    this.stopTouchmove(this.refs.selectWrap);</span><br><span class="line">  &#125;</span><br><span class="line">  else if(nextProps.opened)&#123;</span><br><span class="line">    element = this.refs.selectWrap;  //遮罩层元素，element、startY、moveEndY为全局变量</span><br><span class="line">    if(element)&#123;</span><br><span class="line">      element.addEventListener(&apos;touchstart&apos;, this.onTouchStart); //监听touchstart事件，获取滑动初始值</span><br><span class="line">      element.addEventListener(&apos;touchmove&apos;, function (e) &#123;</span><br><span class="line">  e.stopPropagation(); //阻止冒泡</span><br><span class="line">        moveEndY = e.changedTouches[0].pageY;</span><br><span class="line">        let Y = moveEndY - startY; //计算滚动差值</span><br><span class="line">        if(!e.target || e.target.nodeName!=&apos;LI&apos;)&#123; //所属行业和所在地区按照标签名判断是否能滚动</span><br><span class="line">          e.preventDefault();</span><br><span class="line">        &#125;</span><br><span class="line">        else if(e.target.nodeName==&apos;LI&apos; &amp;&amp;e.target.parentNode &amp;&amp;e.target.parentNode.nodeName===&apos;UL&apos;)&#123;</span><br><span class="line">          let top = e.target.parentNode.scrollTop; //可滚动区域滚动高度</span><br><span class="line">          let showHeight = e.target.parentNode.clientHeight; //可滚动区域显示高度</span><br><span class="line">          let sumHeight = 0;</span><br><span class="line">          let Arr = e.target.parentNode.children;</span><br><span class="line">          for(let i=0;i&lt;Arr.length;i++)&#123; //计算可滚动区域总高度</span><br><span class="line">            sumHeight = sumHeight+ Arr[i].clientHeight;</span><br><span class="line">          &#125;</span><br><span class="line">          if((top&gt;=sumHeight-showHeight &amp;&amp; Y&lt;0) || (top===0 &amp;&amp;Y&gt;0))&#123; //到底部禁止上拉，到顶部禁止下拉</span><br><span class="line">            e.preventDefault();</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, false);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">//获取滑动初始值</span><br><span class="line">onTouchStart = (e) =&gt; &#123;</span><br><span class="line">  startY = e.touches[0].pageY;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">//阻止滚动</span><br><span class="line">stopTouchmove = (element)=&gt;&#123;</span><br><span class="line">  if(element)&#123;</span><br><span class="line">    element.addEventListener(&apos;touchmove&apos;, (e) =&gt; &#123;</span><br><span class="line">      e.preventDefault();</span><br><span class="line">    &#125;, false);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面就是针对ios系统橡皮筋效果处理的全部内容，核心思想不变，就是阻止滑动事件的默认行为，使用的时候就得因地制宜，什么时候该阻止什么时候不阻止得视情况而定，具体问题具体分析即可。</p>
+<p>另：移动端滚动效果通常是通过加‘overflow: auto;’实现，但是只加这个属性滚动会不流畅，因此通常需要在加一句‘-webkit-overflow-scrolling: touch;’，这样滚动效果就会很流畅了。</p>
 
       
     </div>
@@ -367,7 +364,7 @@
           
             <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
           
-            <a href="/tags/算法/" rel="tag"># 算法</a>
+            <a href="/tags/移动端/" rel="tag"># 移动端</a>
           
         </div>
       
@@ -380,8 +377,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/15/vue-resource中设置全局拦截器遇到的两个问题/" rel="next" title="vue-resource中设置全局拦截器遇到的两个问题">
-                <i class="fa fa-chevron-left"></i> vue-resource中设置全局拦截器遇到的两个问题
+              <a href="/2019/06/25/移动端开发踩坑记之输入框的自定义/" rel="next" title="移动端开发踩坑记之输入框的自定义">
+                <i class="fa fa-chevron-left"></i> 移动端开发踩坑记之输入框的自定义
               </a>
             
           </div>
@@ -389,10 +386,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/15/vue中引入mousewheel事件及其兼容性处理/" rel="prev" title="vue中引入mousewheel事件及其兼容性处理">
-                vue中引入mousewheel事件及其兼容性处理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
